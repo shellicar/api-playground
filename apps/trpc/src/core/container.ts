@@ -11,6 +11,9 @@ import { IMutationEntitiesCreateResolver, IQueryEntitiesGetResolver, IQueryEntit
 import { MutationEntitiesCreateResolver } from '../features/nested-polymorphism/MutationEntitiesCreateResolver';
 import { QueryEntitiesGetResolver } from '../features/nested-polymorphism/QueryEntitiesGetResolver';
 import { QueryEntitiesListResolver } from '../features/nested-polymorphism/QueryEntitiesListResolver';
+import { IQueryHoldersGetResolver, IQueryHoldersListResolver } from '../features/uniform-union-returns/interfaces';
+import { QueryHoldersGetResolver } from '../features/uniform-union-returns/QueryHoldersGetResolver';
+import { QueryHoldersListResolver } from '../features/uniform-union-returns/QueryHoldersListResolver';
 
 const services = createServiceCollection();
 
@@ -23,5 +26,7 @@ services.register(IQueryContainersGetResolver).to(QueryContainersGetResolver).si
 services.register(IQueryContainersListResolver).to(QueryContainersListResolver).singleton();
 services.register(IQueryEventsGetResolver).to(QueryEventsGetResolver).singleton();
 services.register(IMutationEventsCreateResolver).to(MutationEventsCreateResolver).singleton();
+services.register(IQueryHoldersGetResolver).to(QueryHoldersGetResolver).singleton();
+services.register(IQueryHoldersListResolver).to(QueryHoldersListResolver).singleton();
 
 export const container = services.buildProvider();

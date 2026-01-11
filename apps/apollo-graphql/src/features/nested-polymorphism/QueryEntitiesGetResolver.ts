@@ -1,4 +1,4 @@
-import type { GetEntityInput, InnerOne, InnerTwo, Outer, OuterAlpha, OuterBeta } from '../../generated/graphql';
+import type { InnerOne, InnerTwo, Outer, OuterAlpha, OuterBeta, QueryEntitiesGetInput } from '../../generated/graphql';
 import { IQueryEntitiesGetResolver } from './interfaces';
 
 const mockInnerOne: InnerOne = {
@@ -32,7 +32,7 @@ const mockOuterBeta: OuterBeta = {
 };
 
 export class QueryEntitiesGetResolver extends IQueryEntitiesGetResolver {
-  public async query(_input: GetEntityInput): Promise<Outer | null> {
+  public async query(_input: QueryEntitiesGetInput): Promise<Outer | null> {
     // Randomly return OuterAlpha or OuterBeta to test nested polymorphism
     return Math.random() > 0.5 ? mockOuterAlpha : mockOuterBeta;
   }

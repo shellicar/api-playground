@@ -41,11 +41,15 @@ type ContainerY implements IContainer & INode {
 
 union Container = ContainerX | ContainerY
 
+input QueryContainersGetInput {
+  id: UUID!
+}
+
 extend type Query {
   containers: ContainerQueries!
 }
 
 type ContainerQueries {
-  get(input: GetEntityInput!): Container
-  list(input: ListContainersInput!): ContainerConnection!
+  get(input: QueryContainersGetInput!): Container
+  list(input: QueryContainersListInput!): ContainerConnection!
 }

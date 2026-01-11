@@ -1,8 +1,8 @@
 import { IQueryEntitiesListResolver } from './interfaces';
-import type { ListOutersInput, OuterConnection } from './nested-polymorphism-pagination';
+import type { OuterConnection, QueryEntitiesListInput } from './nested-polymorphism-pagination';
 
 export class QueryEntitiesListResolver extends IQueryEntitiesListResolver {
-  public async query(_input: ListOutersInput): Promise<OuterConnection> {
+  public async query(_input: QueryEntitiesListInput): Promise<OuterConnection> {
     // TODO: Implement
     return {
       __typename: 'OuterConnection',

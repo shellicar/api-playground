@@ -59,3 +59,16 @@ export type HolderBeta = z.infer<typeof holderBetaSchema>;
 export const holderSchema = z.discriminatedUnion('__typename', [holderAlphaSchema, holderBetaSchema]);
 
 export type Holder = z.infer<typeof holderSchema>;
+
+// Input schemas
+export const queryHoldersGetInputSchema = z.object({
+  id: uuidSchema,
+});
+
+export type QueryHoldersGetInput = z.infer<typeof queryHoldersGetInputSchema>;
+
+export const queryHoldersListInputSchema = z.object({
+  first: z.number().default(10),
+});
+
+export type QueryHoldersListInput = z.infer<typeof queryHoldersListInputSchema>;

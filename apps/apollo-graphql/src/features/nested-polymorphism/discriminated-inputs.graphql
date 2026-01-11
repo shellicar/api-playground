@@ -12,11 +12,11 @@ input CreateOptionBData {
   valueB: Int!
 }
 
-input CreateEntityInput @oneOf {
+input MutationEntitiesCreateInput @oneOf {
   optionA: CreateOptionAData
   optionB: CreateOptionBData
 }
 
-input GetEntityInput {
+input QueryEntitiesGetInput {
   id: UUID!
 }

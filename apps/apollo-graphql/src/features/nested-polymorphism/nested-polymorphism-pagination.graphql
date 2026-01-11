@@ -7,7 +7,7 @@ type OuterConnection {
   pageInfo: PageInfo!
 }
 
-input ListOutersInput {
+input QueryEntitiesListInput {
   after: Cursor
   first: Int = 10
   nameFilter: String

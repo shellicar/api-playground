@@ -10,9 +10,9 @@ export const outerConnectionSchema = z.object({
 
 export type OuterConnection = z.infer<typeof outerConnectionSchema>;
 
-export const listOutersInputSchema = z.object({
+export const queryEntitiesListInputSchema = z.object({
   cursor: z.string().optional(),
   limit: z.number().optional(),
 });
 
-export type ListOutersInput = z.infer<typeof listOutersInputSchema>;
+export type QueryEntitiesListInput = z.infer<typeof queryEntitiesListInputSchema>;

@@ -49,11 +49,11 @@ export type ContainerQueries = {
 };
 
 export type ContainerQueriesGetArgs = {
-  input: GetEntityInput;
+  input: QueryContainersGetInput;
 };
 
 export type ContainerQueriesListArgs = {
-  input: ListContainersInput;
+  input: QueryContainersListInput;
 };
 
 export type ContainerX = IContainer &
@@ -96,8 +96,6 @@ export type CreateEntityFailure = {
   status: FailureReason;
 };
 
-export type CreateEntityInput = { optionA: CreateOptionAData; optionB?: never } | { optionA?: never; optionB: CreateOptionBData };
-
 export type CreateEntityPayload = CreateEntityFailure | CreateEntitySuccess;
 
 /**
@@ -108,12 +106,6 @@ export type CreateEntitySuccess = {
   __typename: 'CreateEntitySuccess';
   entity: Outer;
   recordId: Scalars['UUID']['output'];
-};
-
-export type CreateEventInput = {
-  createdAt: Scalars['Instant']['input'];
-  eventDate: Scalars['LocalDate']['input'];
-  name: Scalars['String']['input'];
 };
 
 /**
@@ -154,7 +146,7 @@ export type EntityMutations = {
 };
 
 export type EntityMutationsCreateArgs = {
-  input: CreateEntityInput;
+  input: MutationEntitiesCreateInput;
 };
 
 export type EntityQueries = {
@@ -164,11 +156,11 @@ export type EntityQueries = {
 };
 
 export type EntityQueriesGetArgs = {
-  input: GetEntityInput;
+  input: QueryEntitiesGetInput;
 };
 
 export type EntityQueriesListArgs = {
-  input: ListOutersInput;
+  input: QueryEntitiesListInput;
 };
 
 /**
@@ -189,7 +181,7 @@ export type EventMutations = {
 };
 
 export type EventMutationsCreateArgs = {
-  input: CreateEventInput;
+  input: MutationEventsCreateInput;
 };
 
 export type EventQueries = {
@@ -198,7 +190,7 @@ export type EventQueries = {
 };
 
 export type EventQueriesGetArgs = {
-  id: Scalars['UUID']['input'];
+  input: QueryEventsGetInput;
 };
 
 export enum FailureReason {
@@ -220,10 +212,6 @@ export type GeneralProblemDetails = IMutationProblemDetails & {
   __typename: 'GeneralProblemDetails';
   key: Scalars['String']['output'];
   value: Scalars['String']['output'];
-};
-
-export type GetEntityInput = {
-  id: Scalars['UUID']['input'];
 };
 
 /** Health check query for service monitoring. */
@@ -252,6 +240,20 @@ export type HolderBeta = IHolder &
     name: Scalars['String']['output'];
     payload?: Maybe<Payload>;
   };
+
+export type HolderQueries = {
+  __typename: 'HolderQueries';
+  get?: Maybe<Holder>;
+  list: Array<Holder>;
+};
+
+export type HolderQueriesGetArgs = {
+  input: QueryHoldersGetInput;
+};
+
+export type HolderQueriesListArgs = {
+  input: QueryHoldersListInput;
+};
 
 export type IContainer = {
   detail?: Maybe<IDetail>;
@@ -329,22 +331,18 @@ export type InnerTwo = IInner &
     label: Scalars['String']['output'];
   };
 
-export type ListContainersInput = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  nameFilter?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ListOutersInput = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  nameFilter?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type Mutation = {
   __typename: 'Mutation';
   entities: EntityMutations;
   events: EventMutations;
+};
+
+export type MutationEntitiesCreateInput = { optionA: CreateOptionAData; optionB?: never } | { optionA?: never; optionB: CreateOptionBData };
+
+export type MutationEventsCreateInput = {
+  createdAt: Scalars['Instant']['input'];
+  eventDate: Scalars['LocalDate']['input'];
+  name: Scalars['String']['input'];
 };
 
 export type MutationProblem = AuthorizationProblem | GeneralProblem | ValidationProblem;
@@ -411,6 +409,39 @@ export type Query = {
   entities: EntityQueries;
   events: EventQueries;
   health: HealthStatus;
+  holders: HolderQueries;
+};
+
+export type QueryContainersGetInput = {
+  id: Scalars['UUID']['input'];
+};
+
+export type QueryContainersListInput = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  nameFilter?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type QueryEntitiesGetInput = {
+  id: Scalars['UUID']['input'];
+};
+
+export type QueryEntitiesListInput = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  nameFilter?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type QueryEventsGetInput = {
+  id: Scalars['UUID']['input'];
+};
+
+export type QueryHoldersGetInput = {
+  id: Scalars['UUID']['input'];
+};
+
+export type QueryHoldersListInput = {
+  first?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type ValidationProblem = IMutationProblem & {
@@ -523,10 +554,8 @@ export type ResolversTypes = ResolversObject<{
   CreateContainerPayload: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['CreateContainerPayload']>;
   CreateContainerSuccess: ResolverTypeWrapper<Omit<CreateContainerSuccess, 'container'> & { container: ResolversTypes['Container'] }>;
   CreateEntityFailure: ResolverTypeWrapper<Omit<CreateEntityFailure, 'errors'> & { errors: Array<ResolversTypes['MutationProblem']> }>;
-  CreateEntityInput: CreateEntityInput;
   CreateEntityPayload: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['CreateEntityPayload']>;
   CreateEntitySuccess: ResolverTypeWrapper<Omit<CreateEntitySuccess, 'entity'> & { entity: ResolversTypes['Outer'] }>;
-  CreateEventInput: CreateEventInput;
   CreateOptionAData: CreateOptionAData;
   CreateOptionBData: CreateOptionBData;
   Cursor: ResolverTypeWrapper<Scalars['Cursor']['output']>;
@@ -541,11 +570,11 @@ export type ResolversTypes = ResolversObject<{
   FailureReason: FailureReason;
   GeneralProblem: ResolverTypeWrapper<GeneralProblem>;
   GeneralProblemDetails: ResolverTypeWrapper<GeneralProblemDetails>;
-  GetEntityInput: GetEntityInput;
   HealthStatus: ResolverTypeWrapper<HealthStatus>;
   Holder: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['Holder']>;
   HolderAlpha: ResolverTypeWrapper<Omit<HolderAlpha, 'payload'> & { payload?: Maybe<ResolversTypes['Payload']> }>;
   HolderBeta: ResolverTypeWrapper<Omit<HolderBeta, 'payload'> & { payload?: Maybe<ResolversTypes['Payload']> }>;
+  HolderQueries: ResolverTypeWrapper<Omit<HolderQueries, 'get' | 'list'> & { get?: Maybe<ResolversTypes['Holder']>; list: Array<ResolversTypes['Holder']> }>;
   IContainer: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['IContainer']>;
   IDetail: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['IDetail']>;
   IHolder: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['IHolder']>;
@@ -560,10 +589,10 @@ export type ResolversTypes = ResolversObject<{
   InnerTwo: ResolverTypeWrapper<InnerTwo>;
   Instant: ResolverTypeWrapper<Scalars['Instant']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  ListContainersInput: ListContainersInput;
-  ListOutersInput: ListOutersInput;
   LocalDate: ResolverTypeWrapper<Scalars['LocalDate']['output']>;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
+  MutationEntitiesCreateInput: MutationEntitiesCreateInput;
+  MutationEventsCreateInput: MutationEventsCreateInput;
   MutationProblem: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['MutationProblem']>;
   MutationProblemDetails: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['MutationProblemDetails']>;
   Outer: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['Outer']>;
@@ -575,6 +604,13 @@ export type ResolversTypes = ResolversObject<{
   PayloadTypeA: ResolverTypeWrapper<PayloadTypeA>;
   PayloadTypeB: ResolverTypeWrapper<PayloadTypeB>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
+  QueryContainersGetInput: QueryContainersGetInput;
+  QueryContainersListInput: QueryContainersListInput;
+  QueryEntitiesGetInput: QueryEntitiesGetInput;
+  QueryEntitiesListInput: QueryEntitiesListInput;
+  QueryEventsGetInput: QueryEventsGetInput;
+  QueryHoldersGetInput: QueryHoldersGetInput;
+  QueryHoldersListInput: QueryHoldersListInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   UUID: ResolverTypeWrapper<Scalars['UUID']['output']>;
   ValidationProblem: ResolverTypeWrapper<ValidationProblem>;
@@ -595,10 +631,8 @@ export type ResolversParentTypes = ResolversObject<{
   CreateContainerPayload: ResolversUnionTypes<ResolversParentTypes>['CreateContainerPayload'];
   CreateContainerSuccess: Omit<CreateContainerSuccess, 'container'> & { container: ResolversParentTypes['Container'] };
   CreateEntityFailure: Omit<CreateEntityFailure, 'errors'> & { errors: Array<ResolversParentTypes['MutationProblem']> };
-  CreateEntityInput: CreateEntityInput;
   CreateEntityPayload: ResolversUnionTypes<ResolversParentTypes>['CreateEntityPayload'];
   CreateEntitySuccess: Omit<CreateEntitySuccess, 'entity'> & { entity: ResolversParentTypes['Outer'] };
-  CreateEventInput: CreateEventInput;
   CreateOptionAData: CreateOptionAData;
   CreateOptionBData: CreateOptionBData;
   Cursor: Scalars['Cursor']['output'];
@@ -612,11 +646,11 @@ export type ResolversParentTypes = ResolversObject<{
   EventQueries: EventQueries;
   GeneralProblem: GeneralProblem;
   GeneralProblemDetails: GeneralProblemDetails;
-  GetEntityInput: GetEntityInput;
   HealthStatus: HealthStatus;
   Holder: ResolversUnionTypes<ResolversParentTypes>['Holder'];
   HolderAlpha: Omit<HolderAlpha, 'payload'> & { payload?: Maybe<ResolversParentTypes['Payload']> };
   HolderBeta: Omit<HolderBeta, 'payload'> & { payload?: Maybe<ResolversParentTypes['Payload']> };
+  HolderQueries: Omit<HolderQueries, 'get' | 'list'> & { get?: Maybe<ResolversParentTypes['Holder']>; list: Array<ResolversParentTypes['Holder']> };
   IContainer: ResolversInterfaceTypes<ResolversParentTypes>['IContainer'];
   IDetail: ResolversInterfaceTypes<ResolversParentTypes>['IDetail'];
   IHolder: ResolversInterfaceTypes<ResolversParentTypes>['IHolder'];
@@ -631,10 +665,10 @@ export type ResolversParentTypes = ResolversObject<{
   InnerTwo: InnerTwo;
   Instant: Scalars['Instant']['output'];
   Int: Scalars['Int']['output'];
-  ListContainersInput: ListContainersInput;
-  ListOutersInput: ListOutersInput;
   LocalDate: Scalars['LocalDate']['output'];
   Mutation: Record<PropertyKey, never>;
+  MutationEntitiesCreateInput: MutationEntitiesCreateInput;
+  MutationEventsCreateInput: MutationEventsCreateInput;
   MutationProblem: ResolversUnionTypes<ResolversParentTypes>['MutationProblem'];
   MutationProblemDetails: ResolversUnionTypes<ResolversParentTypes>['MutationProblemDetails'];
   Outer: ResolversUnionTypes<ResolversParentTypes>['Outer'];
@@ -646,6 +680,13 @@ export type ResolversParentTypes = ResolversObject<{
   PayloadTypeA: PayloadTypeA;
   PayloadTypeB: PayloadTypeB;
   Query: Record<PropertyKey, never>;
+  QueryContainersGetInput: QueryContainersGetInput;
+  QueryContainersListInput: QueryContainersListInput;
+  QueryEntitiesGetInput: QueryEntitiesGetInput;
+  QueryEntitiesListInput: QueryEntitiesListInput;
+  QueryEventsGetInput: QueryEventsGetInput;
+  QueryHoldersGetInput: QueryHoldersGetInput;
+  QueryHoldersListInput: QueryHoldersListInput;
   String: Scalars['String']['output'];
   UUID: Scalars['UUID']['output'];
   ValidationProblem: ValidationProblem;
@@ -763,7 +804,7 @@ export type EventMutationsResolvers<ContextType = GraphQLContext, ParentType ext
 }>;
 
 export type EventQueriesResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['EventQueries'] = ResolversParentTypes['EventQueries']> = ResolversObject<{
-  get?: Resolver<Maybe<ResolversTypes['Event']>, ParentType, ContextType, RequireFields<EventQueriesGetArgs, 'id'>>;
+  get?: Resolver<Maybe<ResolversTypes['Event']>, ParentType, ContextType, RequireFields<EventQueriesGetArgs, 'input'>>;
 }>;
 
 export type GeneralProblemResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['GeneralProblem'] = ResolversParentTypes['GeneralProblem']> = ResolversObject<{
@@ -801,6 +842,11 @@ export type HolderBetaResolvers<ContextType = GraphQLContext, ParentType extends
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   payload?: Resolver<Maybe<ResolversTypes['Payload']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type HolderQueriesResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['HolderQueries'] = ResolversParentTypes['HolderQueries']> = ResolversObject<{
+  get?: Resolver<Maybe<ResolversTypes['Holder']>, ParentType, ContextType, RequireFields<HolderQueriesGetArgs, 'input'>>;
+  list?: Resolver<Array<ResolversTypes['Holder']>, ParentType, ContextType, RequireFields<HolderQueriesListArgs, 'input'>>;
 }>;
 
 export type IContainerResolvers<ContextType = GraphQLContext, ParentType extends ResolversParentTypes['IContainer'] = ResolversParentTypes['IContainer']> = ResolversObject<{
@@ -933,6 +979,7 @@ export type QueryResolvers<ContextType = GraphQLContext, ParentType extends Reso
   entities?: Resolver<ResolversTypes['EntityQueries'], ParentType, ContextType>;
   events?: Resolver<ResolversTypes['EventQueries'], ParentType, ContextType>;
   health?: Resolver<ResolversTypes['HealthStatus'], ParentType, ContextType>;
+  holders?: Resolver<ResolversTypes['HolderQueries'], ParentType, ContextType>;
 }>;
 
 export interface UuidScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['UUID'], any> {
@@ -984,6 +1031,7 @@ export type Resolvers<ContextType = GraphQLContext> = ResolversObject<{
   Holder?: HolderResolvers<ContextType>;
   HolderAlpha?: HolderAlphaResolvers<ContextType>;
   HolderBeta?: HolderBetaResolvers<ContextType>;
+  HolderQueries?: HolderQueriesResolvers<ContextType>;
   IContainer?: IContainerResolvers<ContextType>;
   IDetail?: IDetailResolvers<ContextType>;
   IHolder?: IHolderResolvers<ContextType>;

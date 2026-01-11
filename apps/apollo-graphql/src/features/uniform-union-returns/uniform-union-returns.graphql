@@ -42,3 +42,20 @@ type HolderBeta implements IHolder & INode {
 }
 
 union Holder = HolderAlpha | HolderBeta
+
+input QueryHoldersGetInput {
+  id: UUID!
+}
+
+input QueryHoldersListInput {
+  first: Int = 10
+}
+
+extend type Query {
+  holders: HolderQueries!
+}
+
+type HolderQueries {
+  get(input: QueryHoldersGetInput!): Holder
+  list(input: QueryHoldersListInput!): [Holder!]!
+}

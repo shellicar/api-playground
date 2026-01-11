@@ -17,12 +17,12 @@ export const createOptionBDataSchema = z.object({
 export type CreateOptionBData = z.infer<typeof createOptionBDataSchema>;
 
 // Discriminated union input - exactly one option must be provided
-export const createEntityInputSchema = z.union([z.object({ optionA: createOptionADataSchema, optionB: z.undefined() }), z.object({ optionA: z.undefined(), optionB: createOptionBDataSchema })]);
+export const mutationEntitiesCreateInputSchema = z.union([z.object({ optionA: createOptionADataSchema, optionB: z.undefined() }), z.object({ optionA: z.undefined(), optionB: createOptionBDataSchema })]);
 
-export type CreateEntityInput = z.infer<typeof createEntityInputSchema>;
+export type MutationEntitiesCreateInput = z.infer<typeof mutationEntitiesCreateInputSchema>;
 
-export const getEntityInputSchema = z.object({
+export const queryEntitiesGetInputSchema = z.object({
   id: uuidSchema,
 });
 
-export type GetEntityInput = z.infer<typeof getEntityInputSchema>;
+export type QueryEntitiesGetInput = z.infer<typeof queryEntitiesGetInputSchema>;

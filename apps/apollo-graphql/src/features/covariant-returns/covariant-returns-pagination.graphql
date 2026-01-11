@@ -7,7 +7,7 @@ type ContainerConnection {
   pageInfo: PageInfo!
 }
 
-input ListContainersInput {
+input QueryContainersListInput {
   after: Cursor
   first: Int = 10
   nameFilter: String

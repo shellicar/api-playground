@@ -1,8 +1,8 @@
-import type { CreateEventInput, Event } from './custom-scalars';
+import type { Event, MutationEventsCreateInput } from './custom-scalars';
 import { IMutationEventsCreateResolver } from './interfaces';
 
 export class MutationEventsCreateResolver extends IMutationEventsCreateResolver {
-  public async mutate(input: CreateEventInput): Promise<Event> {
+  public async mutate(input: MutationEventsCreateInput): Promise<Event> {
     // TODO: Implement
     return {
       __typename: 'Event',

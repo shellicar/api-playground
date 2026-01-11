@@ -52,10 +52,10 @@ extend type Mutation {
 }
 
 type EntityQueries {
-  get(input: GetEntityInput!): Outer
-  list(input: ListOutersInput!): OuterConnection!
+  get(input: QueryEntitiesGetInput!): Outer
+  list(input: QueryEntitiesListInput!): OuterConnection!
 }
 
 type EntityMutations {
-  create(input: CreateEntityInput!): CreateEntityPayload!
+  create(input: MutationEntitiesCreateInput!): CreateEntityPayload!
 }

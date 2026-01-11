@@ -1,8 +1,8 @@
-import type { ContainerConnection, ListContainersInput } from '../../generated/graphql';
+import type { ContainerConnection, QueryContainersListInput } from '../../generated/graphql';
 import { IQueryContainersListResolver } from './interfaces';
 
 export class QueryContainersListResolver extends IQueryContainersListResolver {
-  public async query(_input: ListContainersInput): Promise<ContainerConnection> {
+  public async query(_input: QueryContainersListInput): Promise<ContainerConnection> {
     // TODO: Implement actual pagination
     return {
       __typename: 'ContainerConnection',

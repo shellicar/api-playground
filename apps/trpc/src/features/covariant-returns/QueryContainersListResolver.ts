@@ -1,8 +1,8 @@
-import type { ContainerConnection, ListContainersInput } from './covariant-returns-pagination';
+import type { ContainerConnection, QueryContainersListInput } from './covariant-returns-pagination';
 import { IQueryContainersListResolver } from './interfaces';
 
 export class QueryContainersListResolver extends IQueryContainersListResolver {
-  public async query(_input: ListContainersInput): Promise<ContainerConnection> {
+  public async query(_input: QueryContainersListInput): Promise<ContainerConnection> {
     // TODO: Implement
     return {
       __typename: 'ContainerConnection',

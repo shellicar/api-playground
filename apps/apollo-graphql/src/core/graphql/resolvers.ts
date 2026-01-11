@@ -4,7 +4,8 @@ import { covariantReturnsResolvers } from '../../features/covariant-returns/reso
 import { customScalarsResolvers } from '../../features/custom-scalars/resolvers';
 import { healthResolvers } from '../../features/health/resolvers';
 import { nestedPolymorphismResolvers } from '../../features/nested-polymorphism/resolvers';
-import type { ContainerQueries, EntityMutations, EntityQueries, EventMutations, EventQueries, Resolvers } from '../../generated/graphql';
+import { uniformUnionReturnsResolvers } from '../../features/uniform-union-returns/resolvers';
+import type { ContainerQueries, EntityMutations, EntityQueries, EventMutations, EventQueries, HolderQueries, Resolvers } from '../../generated/graphql';
 
 const InstantScalar = new GraphQLScalarType<Instant, string>({
   name: 'Instant',
@@ -64,6 +65,7 @@ export const resolvers = {
     entities: () => ({}) as EntityQueries,
     containers: () => ({}) as ContainerQueries,
     events: () => ({}) as EventQueries,
+    holders: () => ({}) as HolderQueries,
   },
   Mutation: {
     entities: () => ({}) as EntityMutations,
@@ -74,4 +76,5 @@ export const resolvers = {
   ...nestedPolymorphismResolvers,
   ...covariantReturnsResolvers,
   ...customScalarsResolvers,
+  ...uniformUnionReturnsResolvers,
 } satisfies Resolvers;

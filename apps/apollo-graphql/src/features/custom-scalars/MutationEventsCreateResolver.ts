@@ -1,9 +1,9 @@
 import { Instant, LocalDate } from '@js-joda/core';
-import type { CreateEventInput, Event } from '../../generated/graphql';
+import type { Event, MutationEventsCreateInput } from '../../generated/graphql';
 import { IMutationEventsCreateResolver } from './interfaces';
 
 export class MutationEventsCreateResolver extends IMutationEventsCreateResolver {
-  public async mutate(input: CreateEventInput): Promise<Event> {
+  public async mutate(input: MutationEventsCreateInput): Promise<Event> {
     // Verify that scalars were properly parsed
     if (!(input.createdAt instanceof Instant)) {
       throw new Error(`Expected createdAt to be Instant, got: ${typeof input.createdAt}`);

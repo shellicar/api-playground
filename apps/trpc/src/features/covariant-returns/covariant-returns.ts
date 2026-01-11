@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { iNodeSchema, uuidSchema } from '../shared/base';
 
 // IDetail interface
-export const iDetailSchema = iNodeSchema.extend({
+const iDetailSchema = iNodeSchema.extend({
   value: z.string(),
 });
 

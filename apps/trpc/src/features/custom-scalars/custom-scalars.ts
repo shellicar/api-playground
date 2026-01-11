@@ -12,16 +12,16 @@ export const eventSchema = iNodeSchema.extend({
 export type Event = z.infer<typeof eventSchema>;
 
 // Event inputs
-export const getEventInputSchema = z.object({
+export const queryEventsGetInputSchema = z.object({
   id: uuidSchema,
 });
 
-export type GetEventInput = z.infer<typeof getEventInputSchema>;
+export type QueryEventsGetInput = z.infer<typeof queryEventsGetInputSchema>;
 
-export const createEventInputSchema = z.object({
+export const mutationEventsCreateInputSchema = z.object({
   name: z.string(),
   createdAt: instantSchema,
   eventDate: localDateSchema,
 });
 
-export type CreateEventInput = z.infer<typeof createEventInputSchema>;
+export type MutationEventsCreateInput = z.infer<typeof mutationEventsCreateInputSchema>;

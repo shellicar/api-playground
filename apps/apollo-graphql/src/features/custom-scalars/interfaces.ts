@@ -1,9 +1,9 @@
-import type { CreateEventInput, Event } from '../../generated/graphql';
+import type { Event, MutationEventsCreateInput, QueryEventsGetInput } from '../../generated/graphql';
 
 export abstract class IQueryEventsGetResolver {
-  public abstract query(id: string): Promise<Event | null>;
+  public abstract query(input: QueryEventsGetInput): Promise<Event | null>;
 }
 
 export abstract class IMutationEventsCreateResolver {
-  public abstract mutate(input: CreateEventInput): Promise<Event>;
+  public abstract mutate(input: MutationEventsCreateInput): Promise<Event>;
 }

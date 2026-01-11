@@ -1,4 +1,4 @@
-import { type AuthorizationProblem, type CreateEntityInput, type CreateEntityPayload, FailureReason, type InnerOne, type OuterAlpha, type ValidationProblem, type ValidationProblemDetails } from '../../generated/graphql';
+import { type AuthorizationProblem, type CreateEntityPayload, FailureReason, type InnerOne, type MutationEntitiesCreateInput, type OuterAlpha, type ValidationProblem, type ValidationProblemDetails } from '../../generated/graphql';
 import { IMutationEntitiesCreateResolver } from './interfaces';
 
 const mockInnerOne: InnerOne = {
@@ -28,7 +28,7 @@ const mockAuthorizationProblem: AuthorizationProblem = {
 };
 
 export class MutationEntitiesCreateResolver extends IMutationEntitiesCreateResolver {
-  public async mutate(input: CreateEntityInput): Promise<CreateEntityPayload> {
+  public async mutate(input: MutationEntitiesCreateInput): Promise<CreateEntityPayload> {
     // Test @oneOf discriminated input - exactly one option will be defined
     const option = input.optionA ?? input.optionB;
     const name = option.name;

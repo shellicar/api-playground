@@ -3,8 +3,8 @@ import { IMutationEventsCreateResolver, IQueryEventsGetResolver } from './interf
 
 export const customScalarsResolvers = {
   EventQueries: {
-    get: (_parent, { id }, { container }) => {
-      return container.resolve(IQueryEventsGetResolver).query(id);
+    get: (_parent, { input }, { container }) => {
+      return container.resolve(IQueryEventsGetResolver).query(input);
     },
   },
   EventMutations: {

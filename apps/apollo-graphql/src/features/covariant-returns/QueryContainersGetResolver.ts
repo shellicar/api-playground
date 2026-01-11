@@ -1,4 +1,4 @@
-import type { Container, ContainerX, ContainerY, DetailA, DetailB, GetEntityInput } from '../../generated/graphql';
+import type { Container, ContainerX, ContainerY, DetailA, DetailB, QueryContainersGetInput } from '../../generated/graphql';
 import { IQueryContainersGetResolver } from './interfaces';
 
 const mockDetailA: DetailA = {
@@ -30,7 +30,7 @@ const mockContainerY: ContainerY = {
 };
 
 export class QueryContainersGetResolver extends IQueryContainersGetResolver {
-  public async query(_input: GetEntityInput): Promise<Container | null> {
+  public async query(_input: QueryContainersGetInput): Promise<Container | null> {
     // Randomly return ContainerX or ContainerY to test covariant returns
     return Math.random() > 0.5 ? mockContainerX : mockContainerY;
   }
