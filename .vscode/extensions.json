@@ -9,6 +9,12 @@
     "bierner.markdown-yaml-preamble",
     "davidanson.vscode-markdownlint",
     "ms-vscode.wordcount",
-    "johnpapa.read-time"
+    "johnpapa.read-time",
+    "usernamehw.errorlens",
+    "biomejs.biome",
+    "ms-azuretools.vscode-azurefunctions",
+    "mhutchie.git-graph",
+    "eamodio.gitlens",
+    "ms-azuretools.vscode-bicep"
   ]
 }

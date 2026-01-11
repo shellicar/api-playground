@@ -1,4 +1,5 @@
 {
+  "typescript.tsdk": "apps/webapp/node_modules/typescript/lib",
   "editor.minimap.enabled": false,
   "breadcrumbs.enabled": false,
   "editor.glyphMargin": false,

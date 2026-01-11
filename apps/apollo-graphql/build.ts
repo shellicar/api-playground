@@ -18,7 +18,7 @@ const ctx = await esbuild.context({
   sourcemap: true,
   minify: false,
   splitting: true,
-  plugins: [cleanPlugin({ destructive: true }), graphqlPlugin({ globPattern: 'src/schema/**/*.graphql' })],
+  plugins: [cleanPlugin({ destructive: true }), graphqlPlugin({ globPattern: 'src/features/**/*.graphql' })],
 });
 
 if (watch) {

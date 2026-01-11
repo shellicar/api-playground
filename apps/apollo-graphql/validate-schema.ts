@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { glob } from 'glob';
 import { buildSchema } from 'graphql';
 
-const schemaFiles = await glob('src/schema/**/*.graphql');
+const schemaFiles = await glob('src/features/**/*.graphql');
 const schemaDefs = schemaFiles.map((file) => readFileSync(file, 'utf-8')).join('\n');
 
 try {

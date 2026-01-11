@@ -3,7 +3,7 @@ import type { TypeScriptPluginConfig } from '@graphql-codegen/typescript';
 import type { TypeScriptResolversPluginConfig } from '@graphql-codegen/typescript-resolvers';
 
 const config: CodegenConfig = {
-  schema: 'src/schema/**/*.graphql',
+  schema: 'src/features/**/*.graphql',
   generates: {
     'src/generated/graphql.ts': {
       plugins: ['typescript', 'typescript-resolvers'],

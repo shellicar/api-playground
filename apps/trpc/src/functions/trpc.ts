@@ -7,7 +7,7 @@ async function createWebRequest(azureRequest: HttpRequest): Promise<Request> {
   const path = azureRequest.params.path ?? '';
   const url = new URL(azureRequest.url);
   const trpcUrl = `${url.origin}/trpc/${path}${url.search}`;
-  
+
   const method = azureRequest.method;
   const headers = new Headers();
 

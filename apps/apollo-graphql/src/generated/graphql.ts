@@ -1,5 +1,4 @@
-import type { Instant } from '@js-joda/core';
-import type { LocalDate } from '@js-joda/core';
+import type { Instant, LocalDate } from '@js-joda/core';
 import type { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import type { GraphQLContext } from './context';
 export type Maybe<T> = T | null;
@@ -13,16 +12,16 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  Cursor: { input: string; output: string; }
-  Instant: { input: Instant; output: Instant; }
-  LocalDate: { input: LocalDate; output: LocalDate; }
-  UUID: { input: string; output: string; }
-  Void: { input: undefined; output: undefined; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  Cursor: { input: string; output: string };
+  Instant: { input: Instant; output: Instant };
+  LocalDate: { input: LocalDate; output: LocalDate };
+  UUID: { input: string; output: string };
+  Void: { input: undefined; output: undefined };
 };
 
 export type AuthorizationProblem = IMutationProblem & {
@@ -33,6 +32,10 @@ export type AuthorizationProblem = IMutationProblem & {
 
 export type Container = ContainerX | ContainerY;
 
+/**
+ * Cursor-Based Pagination: Relay-style connections with cursor pagination for list queries.
+ * Pattern: Connection { nodes: [Node!]!, pageInfo: PageInfo! }
+ */
 export type ContainerConnection = {
   __typename: 'ContainerConnection';
   nodes: Array<Container>;
@@ -45,29 +48,29 @@ export type ContainerQueries = {
   list: ContainerConnection;
 };
 
-
 export type ContainerQueriesGetArgs = {
   input: GetEntityInput;
 };
-
 
 export type ContainerQueriesListArgs = {
   input: ListContainersInput;
 };
 
-export type ContainerX = IContainer & INode & {
-  __typename: 'ContainerX';
-  detail?: Maybe<DetailA>;
-  id: Scalars['UUID']['output'];
-  name: Scalars['String']['output'];
-};
+export type ContainerX = IContainer &
+  INode & {
+    __typename: 'ContainerX';
+    detail?: Maybe<DetailA>;
+    id: Scalars['UUID']['output'];
+    name: Scalars['String']['output'];
+  };
 
-export type ContainerY = IContainer & INode & {
-  __typename: 'ContainerY';
-  detail?: Maybe<DetailB>;
-  id: Scalars['UUID']['output'];
-  name: Scalars['String']['output'];
-};
+export type ContainerY = IContainer &
+  INode & {
+    __typename: 'ContainerY';
+    detail?: Maybe<DetailB>;
+    id: Scalars['UUID']['output'];
+    name: Scalars['String']['output'];
+  };
 
 export type CreateContainerFailure = {
   __typename: 'CreateContainerFailure';
@@ -77,6 +80,10 @@ export type CreateContainerFailure = {
 
 export type CreateContainerPayload = CreateContainerFailure | CreateContainerSuccess;
 
+/**
+ * Result Unions: Success/Failure pattern for mutations with structured error handling.
+ * Pattern: MutationPayload = SuccessType | FailureType
+ */
 export type CreateContainerSuccess = {
   __typename: 'CreateContainerSuccess';
   container: Container;
@@ -89,9 +96,7 @@ export type CreateEntityFailure = {
   status: FailureReason;
 };
 
-export type CreateEntityInput =
-  { optionA: CreateOptionAData; optionB?: never; }
-  |  { optionA?: never; optionB: CreateOptionBData; };
+export type CreateEntityInput = { optionA: CreateOptionAData; optionB?: never } | { optionA?: never; optionB: CreateOptionBData };
 
 export type CreateEntityPayload = CreateEntityFailure | CreateEntitySuccess;
 
@@ -127,25 +132,26 @@ export type CreateOptionBData = {
 
 export type Detail = DetailA | DetailB;
 
-export type DetailA = IDetail & INode & {
-  __typename: 'DetailA';
-  id: Scalars['UUID']['output'];
-  specificA: Scalars['Int']['output'];
-  value: Scalars['String']['output'];
-};
+export type DetailA = IDetail &
+  INode & {
+    __typename: 'DetailA';
+    id: Scalars['UUID']['output'];
+    specificA: Scalars['Int']['output'];
+    value: Scalars['String']['output'];
+  };
 
-export type DetailB = IDetail & INode & {
-  __typename: 'DetailB';
-  id: Scalars['UUID']['output'];
-  specificB: Scalars['Boolean']['output'];
-  value: Scalars['String']['output'];
-};
+export type DetailB = IDetail &
+  INode & {
+    __typename: 'DetailB';
+    id: Scalars['UUID']['output'];
+    specificB: Scalars['Boolean']['output'];
+    value: Scalars['String']['output'];
+  };
 
 export type EntityMutations = {
   __typename: 'EntityMutations';
   create: CreateEntityPayload;
 };
-
 
 export type EntityMutationsCreateArgs = {
   input: CreateEntityInput;
@@ -157,11 +163,9 @@ export type EntityQueries = {
   list: OuterConnection;
 };
 
-
 export type EntityQueriesGetArgs = {
   input: GetEntityInput;
 };
-
 
 export type EntityQueriesListArgs = {
   input: ListOutersInput;
@@ -184,7 +188,6 @@ export type EventMutations = {
   create: Event;
 };
 
-
 export type EventMutationsCreateArgs = {
   input: CreateEventInput;
 };
@@ -193,7 +196,6 @@ export type EventQueries = {
   __typename: 'EventQueries';
   get?: Maybe<Event>;
 };
-
 
 export type EventQueriesGetArgs = {
   id: Scalars['UUID']['input'];
@@ -205,7 +207,7 @@ export enum FailureReason {
   NotFound = 'NOT_FOUND',
   SystemError = 'SYSTEM_ERROR',
   Unauthorised = 'UNAUTHORISED',
-  UpdateConflict = 'UPDATE_CONFLICT'
+  UpdateConflict = 'UPDATE_CONFLICT',
 }
 
 export type GeneralProblem = IMutationProblem & {
@@ -233,21 +235,23 @@ export type HealthStatus = {
 
 export type Holder = HolderAlpha | HolderBeta;
 
-export type HolderAlpha = IHolder & INode & {
-  __typename: 'HolderAlpha';
-  alphaField: Scalars['String']['output'];
-  id: Scalars['UUID']['output'];
-  name: Scalars['String']['output'];
-  payload?: Maybe<Payload>;
-};
+export type HolderAlpha = IHolder &
+  INode & {
+    __typename: 'HolderAlpha';
+    alphaField: Scalars['String']['output'];
+    id: Scalars['UUID']['output'];
+    name: Scalars['String']['output'];
+    payload?: Maybe<Payload>;
+  };
 
-export type HolderBeta = IHolder & INode & {
-  __typename: 'HolderBeta';
-  betaField: Scalars['Int']['output'];
-  id: Scalars['UUID']['output'];
-  name: Scalars['String']['output'];
-  payload?: Maybe<Payload>;
-};
+export type HolderBeta = IHolder &
+  INode & {
+    __typename: 'HolderBeta';
+    betaField: Scalars['Int']['output'];
+    id: Scalars['UUID']['output'];
+    name: Scalars['String']['output'];
+    payload?: Maybe<Payload>;
+  };
 
 export type IContainer = {
   detail?: Maybe<IDetail>;
@@ -309,19 +313,21 @@ export type IPayload = {
 
 export type Inner = InnerOne | InnerTwo;
 
-export type InnerOne = IInner & INode & {
-  __typename: 'InnerOne';
-  fieldOne: Scalars['String']['output'];
-  id: Scalars['UUID']['output'];
-  label: Scalars['String']['output'];
-};
+export type InnerOne = IInner &
+  INode & {
+    __typename: 'InnerOne';
+    fieldOne: Scalars['String']['output'];
+    id: Scalars['UUID']['output'];
+    label: Scalars['String']['output'];
+  };
 
-export type InnerTwo = IInner & INode & {
-  __typename: 'InnerTwo';
-  fieldTwo: Scalars['Int']['output'];
-  id: Scalars['UUID']['output'];
-  label: Scalars['String']['output'];
-};
+export type InnerTwo = IInner &
+  INode & {
+    __typename: 'InnerTwo';
+    fieldTwo: Scalars['Int']['output'];
+    id: Scalars['UUID']['output'];
+    label: Scalars['String']['output'];
+  };
 
 export type ListContainersInput = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -347,21 +353,23 @@ export type MutationProblemDetails = GeneralProblemDetails | ValidationProblemDe
 
 export type Outer = OuterAlpha | OuterBeta;
 
-export type OuterAlpha = INode & IOuter & {
-  __typename: 'OuterAlpha';
-  alphaSpecific: Scalars['String']['output'];
-  id: Scalars['UUID']['output'];
-  inner?: Maybe<InnerOne>;
-  name: Scalars['String']['output'];
-};
+export type OuterAlpha = INode &
+  IOuter & {
+    __typename: 'OuterAlpha';
+    alphaSpecific: Scalars['String']['output'];
+    id: Scalars['UUID']['output'];
+    inner?: Maybe<InnerOne>;
+    name: Scalars['String']['output'];
+  };
 
-export type OuterBeta = INode & IOuter & {
-  __typename: 'OuterBeta';
-  betaSpecific: Scalars['Boolean']['output'];
-  id: Scalars['UUID']['output'];
-  inner?: Maybe<InnerTwo>;
-  name: Scalars['String']['output'];
-};
+export type OuterBeta = INode &
+  IOuter & {
+    __typename: 'OuterBeta';
+    betaSpecific: Scalars['Boolean']['output'];
+    id: Scalars['UUID']['output'];
+    inner?: Maybe<InnerTwo>;
+    name: Scalars['String']['output'];
+  };
 
 /**
  * Cursor-Based Pagination: Relay-style connections with cursor pagination for list queries.
@@ -423,32 +431,16 @@ export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
-
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
 export type Resolver<TResult, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>, TArgs = Record<PropertyKey, never>> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
-export type ResolverFn<TResult, TParent, TContext, TArgs> = (
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => Promise<TResult> | TResult;
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (parent: TParent, args: TArgs, context: TContext, info: GraphQLResolveInfo) => Promise<TResult> | TResult;
 
-export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (parent: TParent, args: TArgs, context: TContext, info: GraphQLResolveInfo) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
 
-export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
-  parent: TParent,
-  args: TArgs,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => TResult | Promise<TResult>;
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (parent: TParent, args: TArgs, context: TContext, info: GraphQLResolveInfo) => TResult | Promise<TResult>;
 
 export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
   subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
@@ -460,19 +452,13 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
-  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
-  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> = SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs> | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
 export type SubscriptionResolver<TResult, TKey extends string, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>, TArgs = Record<PropertyKey, never>> =
   | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
-export type TypeResolveFn<TTypes, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>> = (
-  parent: TParent,
-  context: TContext,
-  info: GraphQLResolveInfo
-) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+export type TypeResolveFn<TTypes, TParent = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>> = (parent: TParent, context: TContext, info: GraphQLResolveInfo) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
 export type IsTypeOfResolverFn<T = Record<PropertyKey, never>, TContext = Record<PropertyKey, never>> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
 
@@ -483,104 +469,45 @@ export type DirectiveResolverFn<TResult = Record<PropertyKey, never>, TParent = 
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo
+  info: GraphQLResolveInfo,
 ) => TResult | Promise<TResult>;
-
-
 
 /** Mapping of union types */
 export type ResolversUnionTypes<_RefType extends Record<string, unknown>> = ResolversObject<{
-  Container:
-    | ( ContainerX & { __typename: 'ContainerX' } )
-    | ( ContainerY & { __typename: 'ContainerY' } )
-  ;
-  CreateContainerPayload:
-    | ( Omit<CreateContainerFailure, 'errors'> & { errors: Array<_RefType['MutationProblem']> } & { __typename: 'CreateContainerFailure' } )
-    | ( Omit<CreateContainerSuccess, 'container'> & { container: _RefType['Container'] } & { __typename: 'CreateContainerSuccess' } )
-  ;
-  CreateEntityPayload:
-    | ( Omit<CreateEntityFailure, 'errors'> & { errors: Array<_RefType['MutationProblem']> } & { __typename: 'CreateEntityFailure' } )
-    | ( Omit<CreateEntitySuccess, 'entity'> & { entity: _RefType['Outer'] } & { __typename: 'CreateEntitySuccess' } )
-  ;
-  Detail:
-    | ( DetailA & { __typename: 'DetailA' } )
-    | ( DetailB & { __typename: 'DetailB' } )
-  ;
-  Holder:
-    | ( Omit<HolderAlpha, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderAlpha' } )
-    | ( Omit<HolderBeta, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderBeta' } )
-  ;
-  Inner:
-    | ( InnerOne & { __typename: 'InnerOne' } )
-    | ( InnerTwo & { __typename: 'InnerTwo' } )
-  ;
-  MutationProblem:
-    | ( AuthorizationProblem & { __typename: 'AuthorizationProblem' } )
-    | ( GeneralProblem & { __typename: 'GeneralProblem' } )
-    | ( ValidationProblem & { __typename: 'ValidationProblem' } )
-  ;
-  MutationProblemDetails:
-    | ( GeneralProblemDetails & { __typename: 'GeneralProblemDetails' } )
-    | ( ValidationProblemDetails & { __typename: 'ValidationProblemDetails' } )
-  ;
-  Outer:
-    | ( OuterAlpha & { __typename: 'OuterAlpha' } )
-    | ( OuterBeta & { __typename: 'OuterBeta' } )
-  ;
-  Payload:
-    | ( PayloadTypeA & { __typename: 'PayloadTypeA' } )
-    | ( PayloadTypeB & { __typename: 'PayloadTypeB' } )
-  ;
+  Container: (ContainerX & { __typename: 'ContainerX' }) | (ContainerY & { __typename: 'ContainerY' });
+  CreateContainerPayload: (Omit<CreateContainerFailure, 'errors'> & { errors: Array<_RefType['MutationProblem']> } & { __typename: 'CreateContainerFailure' }) | (Omit<CreateContainerSuccess, 'container'> & { container: _RefType['Container'] } & { __typename: 'CreateContainerSuccess' });
+  CreateEntityPayload: (Omit<CreateEntityFailure, 'errors'> & { errors: Array<_RefType['MutationProblem']> } & { __typename: 'CreateEntityFailure' }) | (Omit<CreateEntitySuccess, 'entity'> & { entity: _RefType['Outer'] } & { __typename: 'CreateEntitySuccess' });
+  Detail: (DetailA & { __typename: 'DetailA' }) | (DetailB & { __typename: 'DetailB' });
+  Holder: (Omit<HolderAlpha, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderAlpha' }) | (Omit<HolderBeta, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderBeta' });
+  Inner: (InnerOne & { __typename: 'InnerOne' }) | (InnerTwo & { __typename: 'InnerTwo' });
+  MutationProblem: (AuthorizationProblem & { __typename: 'AuthorizationProblem' }) | (GeneralProblem & { __typename: 'GeneralProblem' }) | (ValidationProblem & { __typename: 'ValidationProblem' });
+  MutationProblemDetails: (GeneralProblemDetails & { __typename: 'GeneralProblemDetails' }) | (ValidationProblemDetails & { __typename: 'ValidationProblemDetails' });
+  Outer: (OuterAlpha & { __typename: 'OuterAlpha' }) | (OuterBeta & { __typename: 'OuterBeta' });
+  Payload: (PayloadTypeA & { __typename: 'PayloadTypeA' }) | (PayloadTypeB & { __typename: 'PayloadTypeB' });
 }>;
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> = ResolversObject<{
-  IContainer:
-    | ( ContainerX & { __typename: 'ContainerX' } )
-    | ( ContainerY & { __typename: 'ContainerY' } )
-  ;
-  IDetail:
-    | ( DetailA & { __typename: 'DetailA' } )
-    | ( DetailB & { __typename: 'DetailB' } )
-  ;
-  IHolder:
-    | ( Omit<HolderAlpha, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderAlpha' } )
-    | ( Omit<HolderBeta, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderBeta' } )
-  ;
-  IInner:
-    | ( InnerOne & { __typename: 'InnerOne' } )
-    | ( InnerTwo & { __typename: 'InnerTwo' } )
-  ;
-  IMutationProblem:
-    | ( AuthorizationProblem & { __typename: 'AuthorizationProblem' } )
-    | ( GeneralProblem & { __typename: 'GeneralProblem' } )
-    | ( ValidationProblem & { __typename: 'ValidationProblem' } )
-  ;
-  IMutationProblemDetails:
-    | ( GeneralProblemDetails & { __typename: 'GeneralProblemDetails' } )
-    | ( ValidationProblemDetails & { __typename: 'ValidationProblemDetails' } )
-  ;
+  IContainer: (ContainerX & { __typename: 'ContainerX' }) | (ContainerY & { __typename: 'ContainerY' });
+  IDetail: (DetailA & { __typename: 'DetailA' }) | (DetailB & { __typename: 'DetailB' });
+  IHolder: (Omit<HolderAlpha, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderAlpha' }) | (Omit<HolderBeta, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderBeta' });
+  IInner: (InnerOne & { __typename: 'InnerOne' }) | (InnerTwo & { __typename: 'InnerTwo' });
+  IMutationProblem: (AuthorizationProblem & { __typename: 'AuthorizationProblem' }) | (GeneralProblem & { __typename: 'GeneralProblem' }) | (ValidationProblem & { __typename: 'ValidationProblem' });
+  IMutationProblemDetails: (GeneralProblemDetails & { __typename: 'GeneralProblemDetails' }) | (ValidationProblemDetails & { __typename: 'ValidationProblemDetails' });
   INode:
-    | ( ContainerX & { __typename: 'ContainerX' } )
-    | ( ContainerY & { __typename: 'ContainerY' } )
-    | ( DetailA & { __typename: 'DetailA' } )
-    | ( DetailB & { __typename: 'DetailB' } )
-    | ( Event & { __typename: 'Event' } )
-    | ( Omit<HolderAlpha, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderAlpha' } )
-    | ( Omit<HolderBeta, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderBeta' } )
-    | ( InnerOne & { __typename: 'InnerOne' } )
-    | ( InnerTwo & { __typename: 'InnerTwo' } )
-    | ( OuterAlpha & { __typename: 'OuterAlpha' } )
-    | ( OuterBeta & { __typename: 'OuterBeta' } )
-  ;
-  IOuter:
-    | ( OuterAlpha & { __typename: 'OuterAlpha' } )
-    | ( OuterBeta & { __typename: 'OuterBeta' } )
-  ;
-  IPayload:
-    | ( PayloadTypeA & { __typename: 'PayloadTypeA' } )
-    | ( PayloadTypeB & { __typename: 'PayloadTypeB' } )
-  ;
+    | (ContainerX & { __typename: 'ContainerX' })
+    | (ContainerY & { __typename: 'ContainerY' })
+    | (DetailA & { __typename: 'DetailA' })
+    | (DetailB & { __typename: 'DetailB' })
+    | (Event & { __typename: 'Event' })
+    | (Omit<HolderAlpha, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderAlpha' })
+    | (Omit<HolderBeta, 'payload'> & { payload?: Maybe<_RefType['Payload']> } & { __typename: 'HolderBeta' })
+    | (InnerOne & { __typename: 'InnerOne' })
+    | (InnerTwo & { __typename: 'InnerTwo' })
+    | (OuterAlpha & { __typename: 'OuterAlpha' })
+    | (OuterBeta & { __typename: 'OuterBeta' });
+  IOuter: (OuterAlpha & { __typename: 'OuterAlpha' }) | (OuterBeta & { __typename: 'OuterBeta' });
+  IPayload: (PayloadTypeA & { __typename: 'PayloadTypeA' }) | (PayloadTypeB & { __typename: 'PayloadTypeB' });
 }>;
 
 /** Mapping between all available schema types and the resolvers types */
@@ -589,7 +516,7 @@ export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Container: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['Container']>;
   ContainerConnection: ResolverTypeWrapper<Omit<ContainerConnection, 'nodes'> & { nodes: Array<ResolversTypes['Container']> }>;
-  ContainerQueries: ResolverTypeWrapper<Omit<ContainerQueries, 'get' | 'list'> & { get?: Maybe<ResolversTypes['Container']>, list: ResolversTypes['ContainerConnection'] }>;
+  ContainerQueries: ResolverTypeWrapper<Omit<ContainerQueries, 'get' | 'list'> & { get?: Maybe<ResolversTypes['Container']>; list: ResolversTypes['ContainerConnection'] }>;
   ContainerX: ResolverTypeWrapper<ContainerX>;
   ContainerY: ResolverTypeWrapper<ContainerY>;
   CreateContainerFailure: ResolverTypeWrapper<Omit<CreateContainerFailure, 'errors'> & { errors: Array<ResolversTypes['MutationProblem']> }>;
@@ -607,7 +534,7 @@ export type ResolversTypes = ResolversObject<{
   DetailA: ResolverTypeWrapper<DetailA>;
   DetailB: ResolverTypeWrapper<DetailB>;
   EntityMutations: ResolverTypeWrapper<Omit<EntityMutations, 'create'> & { create: ResolversTypes['CreateEntityPayload'] }>;
-  EntityQueries: ResolverTypeWrapper<Omit<EntityQueries, 'get' | 'list'> & { get?: Maybe<ResolversTypes['Outer']>, list: ResolversTypes['OuterConnection'] }>;
+  EntityQueries: ResolverTypeWrapper<Omit<EntityQueries, 'get' | 'list'> & { get?: Maybe<ResolversTypes['Outer']>; list: ResolversTypes['OuterConnection'] }>;
   Event: ResolverTypeWrapper<Event>;
   EventMutations: ResolverTypeWrapper<EventMutations>;
   EventQueries: ResolverTypeWrapper<EventQueries>;
@@ -661,7 +588,7 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
   Container: ResolversUnionTypes<ResolversParentTypes>['Container'];
   ContainerConnection: Omit<ContainerConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['Container']> };
-  ContainerQueries: Omit<ContainerQueries, 'get' | 'list'> & { get?: Maybe<ResolversParentTypes['Container']>, list: ResolversParentTypes['ContainerConnection'] };
+  ContainerQueries: Omit<ContainerQueries, 'get' | 'list'> & { get?: Maybe<ResolversParentTypes['Container']>; list: ResolversParentTypes['ContainerConnection'] };
   ContainerX: ContainerX;
   ContainerY: ContainerY;
   CreateContainerFailure: Omit<CreateContainerFailure, 'errors'> & { errors: Array<ResolversParentTypes['MutationProblem']> };
@@ -679,7 +606,7 @@ export type ResolversParentTypes = ResolversObject<{
   DetailA: DetailA;
   DetailB: DetailB;
   EntityMutations: Omit<EntityMutations, 'create'> & { create: ResolversParentTypes['CreateEntityPayload'] };
-  EntityQueries: Omit<EntityQueries, 'get' | 'list'> & { get?: Maybe<ResolversParentTypes['Outer']>, list: ResolversParentTypes['OuterConnection'] };
+  EntityQueries: Omit<EntityQueries, 'get' | 'list'> & { get?: Maybe<ResolversParentTypes['Outer']>; list: ResolversParentTypes['OuterConnection'] };
   Event: Event;
   EventMutations: EventMutations;
   EventQueries: EventQueries;
@@ -1088,4 +1015,3 @@ export type Resolvers<ContextType = GraphQLContext> = ResolversObject<{
   ValidationProblemDetails?: ValidationProblemDetailsResolvers<ContextType>;
   Void?: GraphQLScalarType;
 }>;
-
