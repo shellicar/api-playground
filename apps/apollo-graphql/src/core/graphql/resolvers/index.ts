@@ -1,6 +1,7 @@
 import { Instant, LocalDate } from '@js-joda/core';
 import { GraphQLScalarType, Kind } from 'graphql';
 import type { ContainerQueries, EntityMutations, EntityQueries, EventMutations, EventQueries, Resolvers } from '../../../generated/graphql';
+import { IQueryHealthResolver } from '../../../services/resolvers/interfaces';
 import { covariantReturnsResolvers } from './covariant-returns';
 import { customScalarsResolvers } from './custom-scalars';
 import { nestedPolymorphismResolvers } from './nested-polymorphism';
@@ -57,8 +58,11 @@ const LocalDateScalar = new GraphQLScalarType<LocalDate, string>({
   },
 });
 
-export const resolvers: Resolvers = {
+export const resolvers = {
   Query: {
+    health: (_parent, _args, { container }) => {
+      return container.resolve(IQueryHealthResolver).query();
+    },
     entities: () => ({}) as EntityQueries,
     containers: () => ({}) as ContainerQueries,
     events: () => ({}) as EventQueries,
@@ -72,4 +76,4 @@ export const resolvers: Resolvers = {
   ...nestedPolymorphismResolvers,
   ...covariantReturnsResolvers,
   ...customScalarsResolvers,
-};
+} satisfies Resolvers;

@@ -1,4 +1,8 @@
-import type { Container, ContainerConnection, CreateEntityInput, CreateEntityPayload, CreateEventInput, Event, GetEntityInput, ListContainersInput, ListOutersInput, Outer, OuterConnection } from '../../generated/graphql';
+import type { Container, ContainerConnection, CreateEntityInput, CreateEntityPayload, CreateEventInput, Event, GetEntityInput, HealthStatus, ListContainersInput, ListOutersInput, Outer, OuterConnection } from '../../generated/graphql';
+
+export abstract class IQueryHealthResolver {
+  public abstract query(): Promise<HealthStatus>;
+}
 
 export abstract class IQueryContainersGetResolver {
   public abstract query(input: GetEntityInput): Promise<Container | null>;

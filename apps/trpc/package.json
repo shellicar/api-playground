@@ -1,0 +1,37 @@
+{
+  "name": "@api-playground/trpc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/functions/*.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsx build.ts",
+    "build:watch": "tsx build.ts --watch",
+    "dev": "run-p build:watch start",
+    "start": "func start --port 7072 --verbose",
+    "start:debug": "func start --port 7072 --language-worker -- --inspect=9072",
+    "type-check": "tsc --project tsconfig.check.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.28.0",
+  "devDependencies": {
+    "@api-playground/typescript-config": "workspace:*",
+    "@dotenvx/dotenvx": "^1.51.4",
+    "@shellicar/build-clean": "^1.1.2",
+    "@types/node": "^25.0.6",
+    "esbuild": "^0.27.2",
+    "npm-run-all2": "^8.0.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.11.0",
+    "@js-joda/core": "^5.6.5",
+    "@shellicar/core-di": "^3.1.2",
+    "@trpc/server": "^11.8.1",
+    "zod": "^4.3.5"
+  },
+  "type": "module"
+}

@@ -1,7 +1,7 @@
 import type { Resolvers } from '../../../generated/graphql';
 import { IQueryContainersGetResolver, IQueryContainersListResolver } from '../../../services/resolvers/interfaces';
 
-export const covariantReturnsResolvers: Resolvers = {
+export const covariantReturnsResolvers = {
   ContainerQueries: {
     get: (_parent, { input }, { container }) => {
       return container.resolve(IQueryContainersGetResolver).query(input);
@@ -10,4 +10,4 @@ export const covariantReturnsResolvers: Resolvers = {
       return container.resolve(IQueryContainersListResolver).query(input);
     },
   },
-};
+} satisfies Pick<Resolvers, 'ContainerQueries'>;

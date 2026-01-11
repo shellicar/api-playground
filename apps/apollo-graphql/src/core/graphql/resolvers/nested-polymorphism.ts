@@ -1,7 +1,7 @@
 import type { Resolvers } from '../../../generated/graphql';
 import { IMutationEntitiesCreateResolver, IQueryEntitiesGetResolver, IQueryEntitiesListResolver } from '../../../services/resolvers/interfaces';
 
-export const nestedPolymorphismResolvers: Resolvers = {
+export const nestedPolymorphismResolvers = {
   EntityQueries: {
     get: (_parent, { input }, { container }) => {
       return container.resolve(IQueryEntitiesGetResolver).query(input);
@@ -15,4 +15,4 @@ export const nestedPolymorphismResolvers: Resolvers = {
       return container.resolve(IMutationEntitiesCreateResolver).mutate(input);
     },
   },
-};
+} satisfies Pick<Resolvers, 'EntityQueries' | 'EntityMutations'>;

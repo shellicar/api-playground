@@ -1,7 +1,7 @@
 import type { Resolvers } from '../../../generated/graphql';
 import { IMutationEventsCreateResolver, IQueryEventsGetResolver } from '../../../services/resolvers/interfaces';
 
-export const customScalarsResolvers: Resolvers = {
+export const customScalarsResolvers = {
   EventQueries: {
     get: (_parent, { id }, { container }) => {
       return container.resolve(IQueryEventsGetResolver).query(id);
@@ -12,4 +12,4 @@ export const customScalarsResolvers: Resolvers = {
       return container.resolve(IMutationEventsCreateResolver).mutate(input);
     },
   },
-};
+} satisfies Pick<Resolvers, 'EventQueries' | 'EventMutations'>;

@@ -8,6 +8,14 @@
       "port": 9071,
       "restart": true,
       "outFiles": ["${workspaceFolder}/apps/apollo-graphql/dist/**/*.(m|c|)js", "${workspaceFolder}/packages/**/dist/**/*.(m|c|)js", "!**/node_modules/**"]
+    },
+    {
+      "name": "Attach to tRPC",
+      "type": "node",
+      "request": "attach",
+      "port": 9072,
+      "restart": true,
+      "outFiles": ["${workspaceFolder}/apps/trpc/dist/**/*.(m|c|)js", "${workspaceFolder}/packages/**/dist/**/*.(m|c|)js", "!**/node_modules/**"]
     }
   ]
 }

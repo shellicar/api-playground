@@ -12,6 +12,7 @@ const config: CodegenConfig = {
         useTypeImports: true,
         contextType: './context#GraphQLContext',
         strictScalars: true,
+        resolversNonOptionalTypename: true,
         nonOptionalTypename: true,
         scalars: {
           UUID: 'string',

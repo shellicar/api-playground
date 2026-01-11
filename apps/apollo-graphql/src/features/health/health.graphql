@@ -1,0 +1,11 @@
+"""
+Health check query for service monitoring.
+"""
+type HealthStatus {
+  status: String!
+  timestamp: Instant!
+}
+
+extend type Query {
+  health: HealthStatus!
+}
