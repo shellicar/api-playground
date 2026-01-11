@@ -1,0 +1,61 @@
+"""
+Nested Polymorphism: Polymorphic types containing polymorphic fields with covariant returns at both levels.
+Pattern: IOuter.inner: IInner -> OuterAlpha.inner: InnerOne (nested covariance)
+"""
+interface IInner implements INode {
+  id: UUID!
+  label: String!
+}
+
+type InnerOne implements IInner & INode {
+  id: UUID!
+  label: String!
+  fieldOne: String!
+}
+
+type InnerTwo implements IInner & INode {
+  id: UUID!
+  label: String!
+  fieldTwo: Int!
+}
+
+union Inner = InnerOne | InnerTwo
+
+interface IOuter implements INode {
+  id: UUID!
+  name: String!
+  inner: IInner
+}
+
+type OuterAlpha implements IOuter & INode {
+  id: UUID!
+  name: String!
+  inner: InnerOne
+  alphaSpecific: String!
+}
+
+type OuterBeta implements IOuter & INode {
+  id: UUID!
+  name: String!
+  inner: InnerTwo
+  betaSpecific: Boolean!
+}
+
+union Outer = OuterAlpha | OuterBeta
+
+extend type Query {
+  entities: EntityQueries!
+}
+
+extend type Mutation {
+  entities: EntityMutations!
+}
+
+type EntityQueries {
+  get(input: GetEntityInput!): Outer
+  list(input: ListOutersInput!): OuterConnection!
+}
+
+type EntityMutations {
+  create(input: CreateEntityInput!): CreateEntityPayload!
+}

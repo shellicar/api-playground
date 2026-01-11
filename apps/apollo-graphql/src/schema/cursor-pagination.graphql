@@ -1,0 +1,25 @@
+"""
+Cursor-Based Pagination: Relay-style connections with cursor pagination for list queries.
+Pattern: Connection { nodes: [Node!]!, pageInfo: PageInfo! }
+"""
+type OuterConnection {
+  nodes: [Outer!]!
+  pageInfo: PageInfo!
+}
+
+type ContainerConnection {
+  nodes: [Container!]!
+  pageInfo: PageInfo!
+}
+
+input ListOutersInput {
+  after: Cursor
+  first: Int = 10
+  nameFilter: String
+}
+
+input ListContainersInput {
+  after: Cursor
+  first: Int = 10
+  nameFilter: String
+}

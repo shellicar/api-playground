@@ -1,0 +1,69 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+scalar UUID
+scalar LocalDate
+scalar Instant
+scalar Cursor
+scalar Void
+
+enum FailureReason {
+  INVALID_INPUT
+  INVALID_STATE
+  NOT_FOUND
+  SYSTEM_ERROR
+  UNAUTHORISED
+  UPDATE_CONFLICT
+}
+
+interface IMutationProblemDetails {
+  key: String!
+  value: String!
+}
+
+type ValidationProblemDetails implements IMutationProblemDetails {
+  key: String!
+  value: String!
+  fieldPath: String!
+}
+
+type GeneralProblemDetails implements IMutationProblemDetails {
+  key: String!
+  value: String!
+}
+
+union MutationProblemDetails = ValidationProblemDetails | GeneralProblemDetails
+
+interface IMutationProblem {
+  message: String!
+}
+
+type ValidationProblem implements IMutationProblem {
+  message: String!
+  details: [ValidationProblemDetails!]!
+}
+
+type AuthorizationProblem implements IMutationProblem {
+  message: String!
+  requiredPermission: String!
+}
+
+type GeneralProblem implements IMutationProblem {
+  message: String!
+  details: [GeneralProblemDetails!]!
+}
+
+union MutationProblem = ValidationProblem | AuthorizationProblem | GeneralProblem
+
+type PageInfo {
+  total: Int!
+  count: Int!
+  hasNextPage: Boolean!
+  endCursor: Cursor
+}
+
+interface INode {
+  id: UUID!
+}

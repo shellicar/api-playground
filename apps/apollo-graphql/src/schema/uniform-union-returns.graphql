@@ -1,0 +1,44 @@
+"""
+Uniform Union Returns: Interface with union field, all implementations return the same union type.
+Pattern: IHolder.payload: Payload -> HolderAlpha.payload: Payload (same union, not narrowed)
+"""
+interface IPayload {
+  id: UUID!
+  data: String!
+}
+
+type PayloadTypeA implements IPayload {
+  id: UUID!
+  data: String!
+  extraA: String!
+}
+
+type PayloadTypeB implements IPayload {
+  id: UUID!
+  data: String!
+  extraB: Int!
+}
+
+union Payload = PayloadTypeA | PayloadTypeB
+
+interface IHolder implements INode {
+  id: UUID!
+  name: String!
+  payload: Payload
+}
+
+type HolderAlpha implements IHolder & INode {
+  id: UUID!
+  name: String!
+  payload: Payload
+  alphaField: String!
+}
+
+type HolderBeta implements IHolder & INode {
+  id: UUID!
+  name: String!
+  payload: Payload
+  betaField: Int!
+}
+
+union Holder = HolderAlpha | HolderBeta

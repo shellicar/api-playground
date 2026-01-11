@@ -1,0 +1,22 @@
+"""
+Discriminated Input Unions: @oneOf directive for type-safe discriminated inputs in mutations.
+Pattern: CreateEntityInput { optionA: DataA | optionB: DataB }
+"""
+input CreateOptionAData {
+  name: String!
+  valueA: String!
+}
+
+input CreateOptionBData {
+  name: String!
+  valueB: Int!
+}
+
+input CreateEntityInput @oneOf {
+  optionA: CreateOptionAData
+  optionB: CreateOptionBData
+}
+
+input GetEntityInput {
+  id: UUID!
+}

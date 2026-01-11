@@ -1,0 +1,51 @@
+"""
+Covariant Return Types: Interface with field returning interface type, implementations narrow to concrete types.
+Pattern: IContainer.detail: IDetail -> ContainerX.detail: DetailA
+"""
+interface IDetail implements INode {
+  id: UUID!
+  value: String!
+}
+
+type DetailA implements IDetail & INode {
+  id: UUID!
+  value: String!
+  specificA: Int!
+}
+
+type DetailB implements IDetail & INode {
+  id: UUID!
+  value: String!
+  specificB: Boolean!
+}
+
+union Detail = DetailA | DetailB
+
+interface IContainer implements INode {
+  id: UUID!
+  name: String!
+  detail: IDetail
+}
+
+type ContainerX implements IContainer & INode {
+  id: UUID!
+  name: String!
+  detail: DetailA
+}
+
+type ContainerY implements IContainer & INode {
+  id: UUID!
+  name: String!
+  detail: DetailB
+}
+
+union Container = ContainerX | ContainerY
+
+extend type Query {
+  containers: ContainerQueries!
+}
+
+type ContainerQueries {
+  get(input: GetEntityInput!): Container
+  list(input: ListContainersInput!): ContainerConnection!
+}
