@@ -1,0 +1,32 @@
+"""
+Custom Scalars: Testing serialization/deserialization of custom scalar types.
+Pattern: Instant (timestamp) and LocalDate (date-only) scalars with @js-joda/core
+"""
+type Event implements INode {
+  id: UUID!
+  name: String!
+  createdAt: Instant!
+  eventDate: LocalDate!
+}
+
+input CreateEventInput {
+  name: String!
+  createdAt: Instant!
+  eventDate: LocalDate!
+}
+
+extend type Query {
+  events: EventQueries!
+}
+
+type EventQueries {
+  get(id: UUID!): Event
+}
+
+extend type Mutation {
+  events: EventMutations!
+}
+
+type EventMutations {
+  create(input: CreateEventInput!): Event!
+}

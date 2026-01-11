@@ -40,7 +40,13 @@
         "useEnumInitializers": "error",
         "useSelfClosingElements": "error",
         "noInferrableTypes": "error",
-        "noUselessElse": "error"
+        "noUselessElse": "error",
+        "useConsistentMemberAccessibility": {
+          "level": "error",
+          "options": {
+            "accessibility": "explicit"
+          }
+        }
       },
       "performance": {
         "noBarrelFile": "error"

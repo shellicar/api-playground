@@ -4,12 +4,15 @@
   "description": "",
   "main": "dist/functions/*.mjs",
   "scripts": {
-    "build": "tsx build.ts",
-    "dev": "run-p build:watch start",
+    "build": "pnpm validate-schema && pnpm codegen && tsx build.ts",
+    "dev": "run-p codegen:watch build:watch start",
     "start": "func start --port 7071 --verbose",
     "start:debug": "func start --port 7071 --language-worker -- --inspect=9071",
     "type-check": "tsc --project tsconfig.check.json",
-    "build:watch": "tsx build.ts --watch"
+    "build:watch": "tsx build.ts --watch",
+    "validate-schema": "tsx validate-schema.ts",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:watch": "graphql-codegen --config codegen.ts --watch"
   },
   "keywords": [],
   "author": "",
@@ -18,15 +21,25 @@
   "devDependencies": {
     "@api-playground/typescript-config": "workspace:*",
     "@dotenvx/dotenvx": "^1.51.4",
+    "@graphql-codegen/cli": "^6.1.0",
+    "@graphql-codegen/typescript": "^5.0.7",
+    "@graphql-codegen/typescript-resolvers": "^5.1.5",
     "@shellicar/build-clean": "^1.1.2",
+    "@shellicar/build-graphql": "^1.3.0",
     "@types/node": "^25.0.6",
     "esbuild": "^0.27.2",
+    "glob": "^13.0.0",
+    "graphql": "^16.12.0",
     "npm-run-all2": "^8.0.4",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@azure/functions": "^4.11.0"
+    "@apollo/server": "^5.2.0",
+    "@as-integrations/azure-functions": "^0.2.3",
+    "@azure/functions": "^4.11.0",
+    "@js-joda/core": "^5.6.5",
+    "@shellicar/core-di": "^3.1.2"
   },
   "type": "module"
 }

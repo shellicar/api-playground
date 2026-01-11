@@ -1,4 +1,5 @@
 import cleanPlugin from '@shellicar/build-clean/esbuild';
+import graphqlPlugin from '@shellicar/build-graphql/esbuild';
 import * as esbuild from 'esbuild';
 
 const watch = process.argv.includes('--watch');
@@ -17,7 +18,7 @@ const ctx = await esbuild.context({
   sourcemap: true,
   minify: false,
   splitting: true,
-  plugins: [cleanPlugin({ destructive: true })],
+  plugins: [cleanPlugin({ destructive: true }), graphqlPlugin({ globPattern: 'src/schema/**/*.graphql' })],
 });
 
 if (watch) {
