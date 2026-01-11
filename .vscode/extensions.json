@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "bierner.markdown-checkbox",
+    "bierner.markdown-emoji",
+    "bierner.markdown-footnotes",
+    "bierner.github-markdown-preview",
+    "bierner.markdown-mermaid",
+    "bierner.markdown-yaml-preamble",
+    "davidanson.vscode-markdownlint",
+    "ms-vscode.wordcount",
+    "johnpapa.read-time"
+  ]
+}
