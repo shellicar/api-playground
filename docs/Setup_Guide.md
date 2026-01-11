@@ -330,10 +330,25 @@ cat > .vscode/settings.json << 'EOF'
     "bash",
     "software-terms",
     "companies"
-  ]
+  ],
+  "cSpell.enabledFileTypes": {
+    "*": false,
+    "markdown": true,
+    "typescript": true
+  }
+}
+EOF
+
+# Create launch configuration for debugging
+cat > .vscode/launch.json << 'EOF'
+{
+  "version": "0.2.0",
+  "configurations": []
 }
 EOF
 ```
+
+**Note:** Debug configurations for individual apps will be added when setting up each Azure Functions app.
 
 ## 15. Set Package Names (Optional)
 

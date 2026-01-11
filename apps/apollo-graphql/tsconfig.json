@@ -1,0 +1,9 @@
+{
+  "extends": "@api-playground/typescript-config/azure-functions/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "."
+  },
+  "include": ["src/**/*.ts", "build.ts"],
+  "exclude": ["node_modules"]
+}

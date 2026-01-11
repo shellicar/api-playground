@@ -30,7 +30,7 @@ Traditional REST with runtime validation. Zod schemas generate OpenAPI spec and 
 
 ## Getting Started
 
-See [Setup Guide](docs/SETUP.md) for complete project initialization steps.
+See [Setup Guide](docs/Setup_Guide.md) for complete project initialization steps.
 
 ## Implementations
 

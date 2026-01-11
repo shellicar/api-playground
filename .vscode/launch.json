@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Attach to Apollo GraphQL",
+      "type": "node",
+      "request": "attach",
+      "port": 9071,
+      "restart": true,
+      "outFiles": ["${workspaceFolder}/apps/apollo-graphql/dist/**/*.(m|c|)js", "${workspaceFolder}/packages/**/dist/**/*.(m|c|)js", "!**/node_modules/**"]
+    }
+  ]
+}

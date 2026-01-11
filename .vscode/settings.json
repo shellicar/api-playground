@@ -14,5 +14,10 @@
   "markdown.updateLinksOnFileMove.enabled": "prompt",
   "workbench.startupEditor": "none",
   "cSpell.language": "en-AU,en-GB",
-  "cSpell.dictionaries": ["typescript", "node", "npm", "azure", "bash", "software-terms", "companies"]
+  "cSpell.dictionaries": ["typescript", "node", "npm", "azure", "bash", "software-terms", "companies"],
+  "cSpell.enabledFileTypes": {
+    "*": false,
+    "markdown": true,
+    "typescript": true
+  }
 }
