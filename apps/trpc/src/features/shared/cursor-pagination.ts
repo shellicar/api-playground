@@ -8,4 +8,4 @@ export const pageInfoSchema = z.object({
   endCursor: z.string().nullable(),
 });
 
-export type PageInfo = z.infer<typeof pageInfoSchema>;
+// type PageInfo = z.infer<typeof pageInfoSchema>;

@@ -13,4 +13,4 @@ export const appRouter = router({
   holders: uniformUnionReturnsRouter,
 });
 
-export type AppRouter = typeof appRouter;
+// export type AppRouter = typeof appRouter;

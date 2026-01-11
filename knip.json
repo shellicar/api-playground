@@ -1,19 +1,20 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
+  "exclude": ["enumMembers"],
   "ignoreExportsUsedInFile": {
     "interface": true,
     "type": true
   },
+  "ignoreBinaries": ["func"],
+  "ignoreDependencies": ["@dotenvx/dotenvx"],
   "tags": ["-lintignore"],
   "workspaces": {
     "apps/apollo-graphql": {
-      "entry": ["src/functions/*.ts", "build.ts", "validate-schema.ts"],
-      "project": ["src/**/*.ts"],
+      "entry": ["src/functions/*.ts"],
       "ignore": ["src/generated/**"]
     },
     "apps/trpc": {
-      "entry": ["src/functions/*.ts", "build.ts"],
-      "project": ["src/**/*.ts"]
+      "entry": ["src/functions/*.ts"]
     },
     "packages/typescript-config": {
       "entry": [],
