@@ -35,7 +35,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@apollo/server": "^5.2.0",
+    "@apollo/server": "^5.4.0",
     "@as-integrations/azure-functions": "^0.2.3",
     "@azure/functions": "^4.11.0",
     "@js-joda/core": "^5.6.5",
